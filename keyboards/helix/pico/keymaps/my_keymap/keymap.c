@@ -23,7 +23,9 @@ enum layer_number {
     _QWERTY = 0,
     _COLEMAK,
     _LOWER,
-    _RAISE,
+    _SYMBL,
+	_SYMBL2,
+	_SYMBL3,
 	_FN,
     _ADJUST,
     _EMACS,
@@ -43,10 +45,12 @@ enum macro_keycodes {
 #define ADJUST MO(_ADJUST)
 #define L_LANG LGUI_T(KC_LANG2)
 #define R_LANG RGUI_T(KC_LANG1)
-#define LOWER MO(_LOWER)
-#define RAISE MO(_RAISE)
-#define EMACS MO(_EMACS)
-#define FNCTN MO(_FN)
+#define LOWER  MO(_LOWER)
+#define SYMBL  MO(_SYMBL)
+#define SYMBL2 MO(_SYMBL2)
+#define SYMBL3 MO(_SYMBL3)
+#define EMACS  MO(_EMACS)
+#define FNCTN  MO(_FN)
 
 //Macros
 #define M_SAMPLE M(KC_SAMPLEMACRO)
@@ -56,14 +60,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_GESC, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
       KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
       KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                      KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT , \
-      KC_TAB,  ADJUST,  KC_LALT, KC_LGUI, LOWER,   KC_SPC,  _______, _______, KC_SPC,  RAISE,   KC_RGUI, KC_RALT, FNCTN,   KC_RCTL \
+      KC_TAB,  ADJUST,  KC_LALT, KC_LGUI, LOWER,   KC_SPC,  _______, _______, KC_SPC,  SYMBL,   KC_RGUI, KC_RALT, FNCTN,   KC_RCTL \
       ),
 
   [_COLEMAK] = LAYOUT( \
-      KC_GESC, KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                      KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC, \
-      KC_LCTL, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,                      KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    RAISE, \
-      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                      KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, \
-      KC_TAB,  ADJUST,  KC_LALT, L_LANG,  LOWER,   KC_SPC,  _______, _______, KC_SPC,  LOWER,   R_LANG,  KC_RALT, FNCTN,   KC_ENT \
+      KC_GESC, KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                      KC_J,    KC_L,    KC_U,    KC_Y,    KC_TAB,  KC_BSPC, \
+      KC_LCTL, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,                      KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    FNCTN, \
+      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                      KC_K,    KC_M,    SYMBL3,  SYMBL2,  SYMBL,   KC_RSFT, \
+      KC_TAB,  ADJUST,  KC_LALT, L_LANG,  LOWER,   KC_SPC,  _______, _______, KC_SPC,  KC_RSFT, R_LANG,  KC_RALT, _______, KC_ENT \
       ),
 
   [_LOWER] = LAYOUT( \
@@ -73,17 +77,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
       ),
 
-  [_RAISE] = LAYOUT( \
-      _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   KC_CIRC, KC_AMPR, KC_ASTR, _______, _______, _______, \
-      _______, KC_UNDS, KC_MINS, KC_LPRN, KC_RPRN, KC_EQL,                    KC_PIPE, KC_QUOT, KC_GRV,  _______, _______, _______, \
-      _______, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_PLUS,                   KC_BSLS, KC_DQUO, KC_TILD, _______, _______, _______, \
+  [_SYMBL] = LAYOUT( \
+      _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   _______, _______, _______, _______, _______, _______, \
+      _______, KC_SLSH, KC_MINS, KC_LPRN, KC_RPRN, KC_EQL,                    _______, _______, _______, _______, _______, _______, \
+      _______, KC_ASTR, KC_PLUS, KC_LBRC, KC_RBRC, _______,                   _______, _______, _______, _______, _______, _______, \
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
+      ),
+
+  [_SYMBL2] = LAYOUT( \
+      _______, KC_QUES, KC_AMPR, KC_DQUO, KC_QUOT, _______,                    _______, _______, _______, _______, _______, _______, \
+      _______, KC_DOT,  KC_COMM, KC_LCBR, KC_RCBR, _______,                   _______, _______, _______, _______, _______, _______, \
+      _______, KC_COLN, KC_SCLN, KC_LABK, KC_RABK, _______,                   _______, _______, _______, _______, _______, _______, \
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
+      ),
+
+  [_SYMBL3] = LAYOUT( \
+      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
+      _______, KC_UNDS, KC_TILD, KC_GRV,  KC_PIPE, _______,                   _______, _______, _______, _______, _______, _______, \
+      _______, KC_BSLS, KC_CIRC, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
       ),
 
   [_FN] = LAYOUT( \
-      _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     _______, _______, _______, _______, _______, _______,\
-      _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,                    _______, _______, _______, _______, _______, _______, \
-      _______, KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,                    _______, _______, _______, _______, _______, _______, \
+      _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______,                   _______, _______, _______, _______, _______, _______, \
+      _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______,                   _______, _______, _______, _______, _______, _______, \
+      _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,                   _______, _______, _______, _______, _______, _______, \
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
       ),
 
@@ -253,9 +271,9 @@ void matrix_update(struct CharacterMatrix *dest,
 //assign the right code to your layers for OLED display
 #define L_BASE 0
 #define L_LOWER (1<<_LOWER)
-#define L_RAISE (1<<_RAISE)
+#define L_SYMBL (1<<_SYMBL)
 #define L_ADJUST (1<<_ADJUST)
-#define L_ADJUST_TRI (L_ADJUST|L_RAISE|L_LOWER)
+#define L_ADJUST_TRI (L_ADJUST|L_SYMBL|L_LOWER)
 
 static void render_logo(struct CharacterMatrix *matrix) {
 
