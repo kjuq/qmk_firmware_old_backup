@@ -20,15 +20,12 @@ extern rgblight_config_t rgblight_config;
 extern uint8_t is_master;
 
 enum layer_number {
-    _QWERTY = 0,
+	_QWERTY = 0,
     _COLEMAK,
     _LOWER,
     _SYMBL,
-	_SYMBL2,
-	_SYMBL3,
-	_FN,
-    _ADJUST,
-    _EMACS,
+    _SYMBL2,
+    _FN,
 };
 
 enum custom_keycodes {
@@ -42,13 +39,11 @@ enum macro_keycodes {
   KC_SAMPLEMACRO,
 };
 
-#define ADJUST MO(_ADJUST)
-#define L_LANG LGUI_T(KC_LANG2)
-#define R_LANG RGUI_T(KC_LANG1)
+#define CMD_EIS LGUI_T(KC_LANG2)
+#define CMD_KNA RGUI_T(KC_LANG1)
 #define LOWER  MO(_LOWER)
 #define SYMBL  MO(_SYMBL)
 #define SYMBL2 MO(_SYMBL2)
-#define SYMBL3 MO(_SYMBL3)
 #define EMACS  MO(_EMACS)
 #define FNCTN  MO(_FN)
 
@@ -56,45 +51,31 @@ enum macro_keycodes {
 #define M_SAMPLE M(KC_SAMPLEMACRO)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_QWERTY] = LAYOUT( \
-      KC_GESC, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
-      KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                      KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT , \
-      KC_TAB,  ADJUST,  KC_LALT, KC_LGUI, LOWER,   KC_SPC,  _______, _______, KC_SPC,  SYMBL,   KC_RGUI, KC_RALT, FNCTN,   KC_RCTL \
-      ),
-
   [_COLEMAK] = LAYOUT( \
-      KC_GESC, KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                      KC_J,    KC_L,    KC_U,    KC_Y,    KC_TAB,  KC_BSPC, \
-      KC_LCTL, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,                      KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    FNCTN, \
-      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                      KC_K,    KC_M,    SYMBL3,  SYMBL2,  SYMBL,   KC_RSFT, \
-      KC_TAB,  ADJUST,  KC_LALT, L_LANG,  LOWER,   KC_SPC,  _______, _______, KC_SPC,  KC_RSFT, R_LANG,  KC_RALT, _______, KC_ENT \
+      KC_ESC,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                      KC_J,    KC_L,    KC_U,    KC_Y,    KC_TAB,  KC_BSPC, \
+      KC_LCTL, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,                      KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    SYMBL, \
+      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                      KC_K,    KC_M,    _______, FNCTN,   SYMBL,   _______, \
+      _______, _______, KC_LALT, CMD_EIS, LOWER,   KC_SPC,  _______, _______, KC_SPC,  KC_RSFT, CMD_KNA, KC_RALT, _______, _______ \
       ),
 
   [_LOWER] = LAYOUT( \
-      KC_TAB,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL, \
-      _______, _______, KC_HOME, KC_END,  _______, KC_DEL,                    KC_BSPC, KC_ENT,  KC_UP,   _______, _______, _______, \
-      _______, _______, _______, _______, _______, _______,                   CTRLK,   KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, \
+      _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______, \
+      _______, KC_VOLD, KC_VOLU, KC_MUTE, KC_MPLY, KC_DEL,                    KC_BSPC, KC_ENT,  KC_UP,   KC_HOME, KC_END,  _______, \
+      _______, KC_BRID, KC_BRIU, KC_MPRV, KC_MNXT, RESET,                     CTRLK,   KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, \
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
       ),
 
   [_SYMBL] = LAYOUT( \
-      _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   _______, _______, _______, _______, _______, _______, \
-      _______, KC_SLSH, KC_MINS, KC_LPRN, KC_RPRN, KC_EQL,                    _______, _______, _______, _______, _______, _______, \
-      _______, KC_ASTR, KC_PLUS, KC_LBRC, KC_RBRC, _______,                   _______, _______, _______, _______, _______, _______, \
+      _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   KC_CIRC, KC_AMPR, KC_ASTR, _______, _______, _______, \
+      _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_QUOT,                   KC_BSLS, KC_LPRN, KC_RPRN, _______, _______, _______, \
+      _______, KC_SCLN, KC_SLSH, KC_COMM, KC_DOT,  KC_GRV,                    _______, _______, _______, _______, _______, _______, \
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
       ),
 
   [_SYMBL2] = LAYOUT( \
-      _______, KC_QUES, KC_AMPR, KC_DQUO, KC_QUOT, _______,                    _______, _______, _______, _______, _______, _______, \
-      _______, KC_DOT,  KC_COMM, KC_LCBR, KC_RCBR, _______,                   _______, _______, _______, _______, _______, _______, \
-      _______, KC_COLN, KC_SCLN, KC_LABK, KC_RABK, _______,                   _______, _______, _______, _______, _______, _______, \
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
-      ),
-
-  [_SYMBL3] = LAYOUT( \
       _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
-      _______, KC_UNDS, KC_TILD, KC_GRV,  KC_PIPE, _______,                   _______, _______, _______, _______, _______, _______, \
-      _______, KC_BSLS, KC_CIRC, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
+      _______, KC_UNDS, KC_PLUS, KC_COMM, KC_DOT,  KC_QUOT,                   KC_PIPE, _______, _______, _______, _______, _______, \
+      _______, KC_COLN, KC_QUES, KC_LABK, KC_RABK, KC_TILD,                   _______, _______, _______, _______, _______, _______, \
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
       ),
 
@@ -104,31 +85,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,                   _______, _______, _______, _______, _______, _______, \
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
       ),
-
-  /* Adjust (Lower + Raise)
-   * ,-----------------------------------------.             ,-----------------------------------------.
-   * |      | Reset|RGBRST|      |      |      |             |      |      |      |      |      |      |
-   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |Aud on|Audoff|MU TOG|MU MOD|(Mac) |             |(Win) |Qwerty|Colemk|ClmEmc|      |      |
-   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |CK TOG|CK RST| CK UP|CK DWN|      |             |      |      |RGB ON| HUE+ | SAT+ | VAL+ |
-   * |------+------+------+------+------+------+-------------+------+------+------+------+------+------|
-   * |      |      |      |      |      |      |      |      |      |      | MODE | HUE- | SAT- | VAL- |
-   * `-------------------------------------------------------------------------------------------------'
-   */
-  [_ADJUST] = LAYOUT( \
-      _______, RESET,   RGBRST,  _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
-      _______, AU_ON,   AU_OFF,  MU_TOG,  MU_MOD,  _______,                   _______, QWERTY,  COLEMAK, _______, _______, _______, \
-      _______, CK_TOGG, CK_RST,  CK_UP,   CK_DOWN, _______,                   _______, _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, \
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD \
-      ),
-
-  [_EMACS] = LAYOUT( \
-      _______, C(KC_Q), C(KC_W), KC_RGHT, KC_UP,   C(KC_G),                   C(KC_J), C(KC_L), C(KC_U),    C(KC_Y),   C(KC_SCLN), _______, \
-      _______, KC_HOME, C(KC_R), C(KC_S), C(KC_T), C(KC_D),                   KC_BSPC, KC_DOWN, KC_END,     C(KC_I),   C(KC_O),    _______, \
-      _______, C(KC_Z), C(KC_X), C(KC_C), C(KC_V), KC_LEFT,                   CTRLK,   KC_ENT,  C(KC_COMM), C(KC_DOT), C(KC_SLSH), _______, \
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______,   _______,    _______ \
-      )
 };
 
 
@@ -272,8 +228,6 @@ void matrix_update(struct CharacterMatrix *dest,
 #define L_BASE 0
 #define L_LOWER (1<<_LOWER)
 #define L_SYMBL (1<<_SYMBL)
-#define L_ADJUST (1<<_ADJUST)
-#define L_ADJUST_TRI (L_ADJUST|L_SYMBL|L_LOWER)
 
 static void render_logo(struct CharacterMatrix *matrix) {
 
@@ -315,10 +269,6 @@ void render_status(struct CharacterMatrix *matrix) {
            break;
         case L_LOWER:
            matrix_write_P(matrix, PSTR("Lower"));
-           break;
-        case L_ADJUST:
-        case L_ADJUST_TRI:
-           matrix_write_P(matrix, PSTR("Adjust"));
            break;
         default:
            matrix_write(matrix, buf);
