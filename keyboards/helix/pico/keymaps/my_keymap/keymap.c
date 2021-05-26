@@ -64,15 +64,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[_LOWER] = LAYOUT( \
 		_______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______, \
-		_______, KC_9,    KC_0,    KC_LBRC, KC_RBRC, KC_BSLS,                   KC_BSPC, KC_ENT,  KC_QUOT, KC_MINS, KC_EQL,  _______, \
-		_______, KC_SCLN, KC_SLSH, KC_COMM, KC_DOT,  KC_GRV,                    KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, \
+		_______, KC_9,    KC_0,    KC_LBRC, KC_RBRC, KC_BSLS,                   KC_BSPC, KC_ENT,  KC_UP,   KC_MINS, KC_EQL,  _______, \
+		_______, KC_SCLN, KC_SLSH, KC_COMM, KC_DOT,  KC_GRV,                    KC_QUOT, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, \
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
 	),
 
 	[_SYMBL] = LAYOUT( \
 		_______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   KC_CIRC, KC_AMPR, KC_ASTR, _______, _______, _______, \
-		_______, KC_LPRN, KC_RPRN, KC_LCBR, KC_RCBR, KC_PIPE,                   _______, KC_PLUS, KC_DQUO, KC_UNDS, _______, _______, \
-		_______, KC_COLN, KC_QUES, KC_LABK, KC_RABK, KC_TILD,                   _______, _______, _______, _______, _______, _______, \
+		_______, KC_LPRN, KC_RPRN, KC_LCBR, KC_RCBR, KC_PIPE,                   KC_PLUS, KC_UNDS, _______, _______, _______, _______, \
+		_______, KC_COLN, KC_QUES, KC_LABK, KC_RABK, KC_TILD,                   KC_DQUO, _______, _______, _______, _______, _______, \
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
 	),
 
