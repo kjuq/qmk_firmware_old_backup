@@ -17,35 +17,34 @@
 #include QMK_KEYBOARD_H
 #include "muse.h"
 
-
 enum planck_layers {
-	_QWERTY = 0,
-	_COLEMAK,
-	_LOWER,
-	_RAISE,
-	_FN,
+    _QWERTY = 0,
+    _COLEMAK,
+    _LOWER,
+    _RAISE,
+    _FN,
     _ADJUST,
     _PLOVER,
     _MOUSE,
 };
 
 enum planck_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
-  PLOVER,
-  BACKLIT,
-  EXT_PLV
+    QWERTY = SAFE_RANGE,
+    COLEMAK,
+    DVORAK,
+    PLOVER,
+    BACKLIT,
+    EXT_PLV
 };
 
 #define CMD_EIS LGUI_T(KC_LANG2)
 #define CMD_KNA RGUI_T(KC_LANG1)
-#define LOWER  MO(_LOWER)
-#define RAISE  MO(_RAISE)
-#define FNCTN  MO(_FN)
-#define MOUSE  MO(_MOUSE)
+#define LOWER MO(_LOWER)
+#define RAISE MO(_RAISE)
+#define FNCTN MO(_FN)
+#define MOUSE MO(_MOUSE)
 #define COLEMK DF(_COLEMAK)
-#define QWRTY  DF(_QWERTY)
+#define QWRTY DF(_QWERTY)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -101,123 +100,121 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_MOUSE] = LAYOUT_planck_grid(
-    _______, KC_WH_D, KC_MS_U, KC_WH_U, _______, _______, _______, KC_BTN3, KC_BTN4, KC_BTN5, _______, _______,
-    _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______, _______, _______, KC_BTN1, KC_BTN2, _______, _______,
-    _______, KC_WH_L, _______, KC_WH_R, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, KC_WH_D, KC_MS_U, KC_WH_U, XXXXXXX, XXXXXXX, XXXXXXX, KC_BTN3, KC_BTN4, KC_BTN5, XXXXXXX, _______,
+    _______, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN2, XXXXXXX, _______,
+    _______, KC_WH_L, XXXXXXX, KC_WH_R, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
 };
 
 #ifdef AUDIO_ENABLE
-  float plover_song[][2]     = SONG(PLOVER_SOUND);
-  float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
+float plover_song[][2]    = SONG(PLOVER_SOUND);
+float plover_gb_song[][2] = SONG(PLOVER_GOODBYE_SOUND);
 #endif
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
+layer_state_t layer_state_set_user(layer_state_t state) { return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST); }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        print("mode just switched to qwerty and this is a huge string\n");
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-      break;
-    case COLEMAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK);
-      }
-      return false;
-      break;
-    case BACKLIT:
-      if (record->event.pressed) {
-        register_code(KC_RSFT);
-        #ifdef BACKLIGHT_ENABLE
-          backlight_step();
-        #endif
-        #ifdef KEYBOARD_planck_rev5
-          writePinLow(E6);
-        #endif
-      } else {
-        unregister_code(KC_RSFT);
-        #ifdef KEYBOARD_planck_rev5
-          writePinHigh(E6);
-        #endif
-      }
-      return false;
-      break;
-    case PLOVER:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          stop_all_notes();
-          PLAY_SONG(plover_song);
-        #endif
-        layer_off(_RAISE);
-        layer_off(_LOWER);
-        layer_off(_ADJUST);
-        layer_on(_PLOVER);
-        if (!eeconfig_is_enabled()) {
-            eeconfig_init();
-        }
-        keymap_config.raw = eeconfig_read_keymap();
-        keymap_config.nkro = 1;
-        eeconfig_update_keymap(keymap_config.raw);
-      }
-      return false;
-      break;
-    case EXT_PLV:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(plover_gb_song);
-        #endif
-        layer_off(_PLOVER);
-      }
-      return false;
-      break;
-  }
-  return true;
+    switch (keycode) {
+        case QWERTY:
+            if (record->event.pressed) {
+                print("mode just switched to qwerty and this is a huge string\n");
+                set_single_persistent_default_layer(_QWERTY);
+            }
+            return false;
+            break;
+        case COLEMAK:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_COLEMAK);
+            }
+            return false;
+            break;
+        case BACKLIT:
+            if (record->event.pressed) {
+                register_code(KC_RSFT);
+#ifdef BACKLIGHT_ENABLE
+                backlight_step();
+#endif
+#ifdef KEYBOARD_planck_rev5
+                writePinLow(E6);
+#endif
+            } else {
+                unregister_code(KC_RSFT);
+#ifdef KEYBOARD_planck_rev5
+                writePinHigh(E6);
+#endif
+            }
+            return false;
+            break;
+        case PLOVER:
+            if (record->event.pressed) {
+#ifdef AUDIO_ENABLE
+                stop_all_notes();
+                PLAY_SONG(plover_song);
+#endif
+                layer_off(_RAISE);
+                layer_off(_LOWER);
+                layer_off(_ADJUST);
+                layer_on(_PLOVER);
+                if (!eeconfig_is_enabled()) {
+                    eeconfig_init();
+                }
+                keymap_config.raw  = eeconfig_read_keymap();
+                keymap_config.nkro = 1;
+                eeconfig_update_keymap(keymap_config.raw);
+            }
+            return false;
+            break;
+        case EXT_PLV:
+            if (record->event.pressed) {
+#ifdef AUDIO_ENABLE
+                PLAY_SONG(plover_gb_song);
+#endif
+                layer_off(_PLOVER);
+            }
+            return false;
+            break;
+    }
+    return true;
 }
 
-bool muse_mode = false;
-uint8_t last_muse_note = 0;
-uint16_t muse_counter = 0;
-uint8_t muse_offset = 70;
-uint16_t muse_tempo = 50;
+bool     muse_mode      = false;
+uint8_t  last_muse_note = 0;
+uint16_t muse_counter   = 0;
+uint8_t  muse_offset    = 70;
+uint16_t muse_tempo     = 50;
 
 void encoder_update(bool clockwise) {
-  if (muse_mode) {
-    if (IS_LAYER_ON(_RAISE)) {
-      if (clockwise) {
-        muse_offset++;
-      } else {
-        muse_offset--;
-      }
+    if (muse_mode) {
+        if (IS_LAYER_ON(_RAISE)) {
+            if (clockwise) {
+                muse_offset++;
+            } else {
+                muse_offset--;
+            }
+        } else {
+            if (clockwise) {
+                muse_tempo += 1;
+            } else {
+                muse_tempo -= 1;
+            }
+        }
     } else {
-      if (clockwise) {
-        muse_tempo+=1;
-      } else {
-        muse_tempo-=1;
-      }
+        if (clockwise) {
+#ifdef MOUSEKEY_ENABLE
+            tap_code(KC_MS_WH_DOWN);
+#else
+            tap_code(KC_PGDN);
+#endif
+        } else {
+#ifdef MOUSEKEY_ENABLE
+            tap_code(KC_MS_WH_UP);
+#else
+            tap_code(KC_PGUP);
+#endif
+        }
     }
-  } else {
-    if (clockwise) {
-      #ifdef MOUSEKEY_ENABLE
-        tap_code(KC_MS_WH_DOWN);
-      #else
-        tap_code(KC_PGDN);
-      #endif
-    } else {
-      #ifdef MOUSEKEY_ENABLE
-        tap_code(KC_MS_WH_UP);
-      #else
-        tap_code(KC_PGUP);
-      #endif
-    }
-  }
 }
 
 void dip_switch_update_user(uint8_t index, bool active) {
@@ -228,12 +225,16 @@ void dip_switch_update_user(uint8_t index, bool active) {
 #endif
             if (active) {
 #ifdef AUDIO_ENABLE
-                if (play_sound) { PLAY_SONG(plover_song); }
+                if (play_sound) {
+                    PLAY_SONG(plover_song);
+                }
 #endif
                 layer_on(_ADJUST);
             } else {
 #ifdef AUDIO_ENABLE
-                if (play_sound) { PLAY_SONG(plover_gb_song); }
+                if (play_sound) {
+                    PLAY_SONG(plover_gb_song);
+                }
 #endif
                 layer_off(_ADJUST);
             }
@@ -273,11 +274,11 @@ void matrix_scan_user(void) {
 }
 
 bool music_mask_user(uint16_t keycode) {
-  switch (keycode) {
-    case RAISE:
-    case LOWER:
-      return false;
-    default:
-      return true;
-  }
+    switch (keycode) {
+        case RAISE:
+        case LOWER:
+            return false;
+        default:
+            return true;
+    }
 }

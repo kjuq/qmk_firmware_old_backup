@@ -59,15 +59,15 @@
 
 // ホイールキー入力から反応までの遅延
 #undef  MOUSEKEY_WHEEL_DELAY
-#define MOUSEKEY_WHEEL_DELAY 50
+#define MOUSEKEY_WHEEL_DELAY 0 //50
 
 // ホイールキー押しっぱなしの時の反応までのインターバル
 #undef  MOUSEKEY_WHEEL_INTERVAL
-#define MOUSEKEY_WHEEL_INTERVAL 80
+#define MOUSEKEY_WHEEL_INTERVAL 30
 
 // ホイールの移動スピード
 #undef  MOUSEKEY_WHEEL_MAX_SPEED
-#define MOUSEKEY_WHEEL_MAX_SPEED 2
+#define MOUSEKEY_WHEEL_MAX_SPEED 1
 
 // ホイール操作がトップスピードになるまでの時間
 #undef  MOUSEKEY_WHEEL_TIME_TO_MAX
