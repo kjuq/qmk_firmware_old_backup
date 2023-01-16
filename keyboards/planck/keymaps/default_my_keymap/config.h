@@ -41,36 +41,57 @@
 /* https://zenn.dev/mst_nishio/articles/e2dd64d14187b9b4de57 */
 /*************************************************************/
 
-// カーソルキー入力から反応までの遅延
+/********************************************/
+/* https://docs.qmk.fm/#/feature_mouse_keys */
+/********************************************/
+
+// Mouse Settings
+
+// Delay between pressing a movement key and cursor movement (10)
+// ... I can't see the difference though
 #undef  MOUSEKEY_DELAY
-#define MOUSEKEY_DELAY 0
+#define MOUSEKEY_DELAY 10
 
-// カーソルキー押しっぱなしの時の反応までのインターバル
+// Time between cursor movements in milliseconds (20)
 #undef  MOUSEKEY_INTERVAL
-#define MOUSEKEY_INTERVAL 0
+#define MOUSEKEY_INTERVAL 1
 
-// カーソルの移動スピード
+// Step size (8)
+#undef MOUSEKEY_MOVE_DELTA
+#define MOUSEKEY_MOVE_DELTA 1
+
+// Maximum cursor speed at which acceleration stops (10)
 #undef  MOUSEKEY_MAX_SPEED
-#define MOUSEKEY_MAX_SPEED 7
+#define MOUSEKEY_MAX_SPEED 14
 
-// カーソル操作がトップスピードになるまでの時間
+// Time until maximum cursor speed is reached (30)
+// Set 0 to disable accleration
 #undef  MOUSEKEY_TIME_TO_MAX
-#define MOUSEKEY_TIME_TO_MAX 15
+#define MOUSEKEY_TIME_TO_MAX 20
 
-// ホイールキー入力から反応までの遅延
+// Mouse Wheel Settings
+
+// Delay between pressing a wheel key and wheel movement (10)
 #undef  MOUSEKEY_WHEEL_DELAY
-#define MOUSEKEY_WHEEL_DELAY 0 //50
+#define MOUSEKEY_WHEEL_DELAY 10
 
-// ホイールキー押しっぱなしの時の反応までのインターバル
+// Time between wheel movements (80)
 #undef  MOUSEKEY_WHEEL_INTERVAL
-#define MOUSEKEY_WHEEL_INTERVAL 55
+#define MOUSEKEY_WHEEL_INTERVAL 80
 
-// ホイールの移動スピード
+// Maximum number of scroll steps per scroll action (8)
 #undef  MOUSEKEY_WHEEL_MAX_SPEED
-#define MOUSEKEY_WHEEL_MAX_SPEED 1
+#define MOUSEKEY_WHEEL_MAX_SPEED 8
 
-// ホイール操作がトップスピードになるまでの時間
+// Time until maximum scroll speed is reached (40)
+// set 0 to disable accleration
 #undef  MOUSEKEY_WHEEL_TIME_TO_MAX
-#define MOUSEKEY_WHEEL_TIME_TO_MAX 0
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 40
+
+
+
+
+
+
 
 
