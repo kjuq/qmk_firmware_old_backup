@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_LOWER] = LAYOUT_planck_grid(
-    _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_TAB,
+    _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
     _______, KC_9,    KC_0,    KC_LBRC, KC_RBRC, KC_BSLS, KC_BSPC, KC_ENT,  KC_UP,   KC_MINS, KC_EQL,  _______,
     _______, KC_SCLN, KC_SLSH, KC_COMM, KC_DOT,  KC_GRV,  KC_QUOT, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -78,8 +78,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_FN] = LAYOUT_planck_grid(
     _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______, COLEMAK, QWERTY,  PLOVER,  RESET,   _______,
-    _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______, KC_VOLD, KC_VOLU, KC_MUTE, KC_MPLY, _______,
-    _______, KC_F11,  KC_F12,  _______, _______, _______, _______, KC_BRID, KC_BRIU, KC_MPRV, KC_MNXT, _______,
+    _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______, _______, _______, KC_VOLD, KC_VOLU, _______,
+    _______, KC_F11,  KC_F12,  _______, _______, _______, _______, _______, _______, KC_BRID, KC_BRIU, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
@@ -133,26 +133,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case BACKLIT:
             if (record->event.pressed) {
                 register_code(KC_RSFT);
-#ifdef BACKLIGHT_ENABLE
+                #ifdef BACKLIGHT_ENABLE
                 backlight_step();
-#endif
-#ifdef KEYBOARD_planck_rev5
+                #endif
+                #ifdef KEYBOARD_planck_rev5
                 writePinLow(E6);
-#endif
+                #endif
             } else {
                 unregister_code(KC_RSFT);
-#ifdef KEYBOARD_planck_rev5
+                #ifdef KEYBOARD_planck_rev5
                 writePinHigh(E6);
-#endif
+                #endif
             }
             return false;
             break;
         case PLOVER:
             if (record->event.pressed) {
-#ifdef AUDIO_ENABLE
+                #ifdef AUDIO_ENABLE
                 stop_all_notes();
                 PLAY_SONG(plover_song);
-#endif
+                #endif
                 layer_off(_RAISE);
                 layer_off(_LOWER);
                 layer_off(_ADJUST);
@@ -168,9 +168,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case EXT_PLV:
             if (record->event.pressed) {
-#ifdef AUDIO_ENABLE
+                #ifdef AUDIO_ENABLE
                 PLAY_SONG(plover_gb_song);
-#endif
+                #endif
                 layer_off(_PLOVER);
             }
             return false;
@@ -202,17 +202,17 @@ void encoder_update(bool clockwise) {
         }
     } else {
         if (clockwise) {
-#ifdef MOUSEKEY_ENABLE
+            #ifdef MOUSEKEY_ENABLE
             tap_code(KC_MS_WH_DOWN);
-#else
+            #else
             tap_code(KC_PGDN);
-#endif
+            #endif
         } else {
-#ifdef MOUSEKEY_ENABLE
+            #ifdef MOUSEKEY_ENABLE
             tap_code(KC_MS_WH_UP);
-#else
+            #else
             tap_code(KC_PGUP);
-#endif
+            #endif
         }
     }
 }
@@ -220,27 +220,27 @@ void encoder_update(bool clockwise) {
 void dip_switch_update_user(uint8_t index, bool active) {
     switch (index) {
         case 0: {
-#ifdef AUDIO_ENABLE
+            #ifdef AUDIO_ENABLE
             static bool play_sound = false;
-#endif
+            #endif
             if (active) {
-#ifdef AUDIO_ENABLE
+                #ifdef AUDIO_ENABLE
                 if (play_sound) {
                     PLAY_SONG(plover_song);
                 }
-#endif
+                #endif
                 layer_on(_ADJUST);
             } else {
-#ifdef AUDIO_ENABLE
+                #ifdef AUDIO_ENABLE
                 if (play_sound) {
                     PLAY_SONG(plover_gb_song);
                 }
-#endif
+                #endif
                 layer_off(_ADJUST);
             }
-#ifdef AUDIO_ENABLE
+            #ifdef AUDIO_ENABLE
             play_sound = true;
-#endif
+            #endif
             break;
         }
         case 1:
@@ -253,7 +253,7 @@ void dip_switch_update_user(uint8_t index, bool active) {
 }
 
 void matrix_scan_user(void) {
-#ifdef AUDIO_ENABLE
+    #ifdef AUDIO_ENABLE
     if (muse_mode) {
         if (muse_counter == 0) {
             uint8_t muse_note = muse_offset + SCALE[muse_clock_pulse()];
@@ -270,7 +270,7 @@ void matrix_scan_user(void) {
             muse_counter = 0;
         }
     }
-#endif
+    #endif
 }
 
 bool music_mask_user(uint16_t keycode) {
